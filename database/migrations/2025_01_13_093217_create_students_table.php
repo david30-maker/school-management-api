@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->integer('age');
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->string('email');
+            $table->integer('roll_no');
+            $table->date('dob');
+            $table->sting('enrollment_number');
+            $table->string('phone_number');
+            $table->string('address');
+
             $table->timestamps();
         });
     }
