@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * Register a new user and issue a token.
+     */
     public function register(Request $request)
     {
         $fields = $request->validate([
@@ -23,25 +26,40 @@ class AuthController extends Controller
             'password' => Hash::make($fields['password']),
         ]);
 
-        $token = $user->createToken('aut_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['token' => $token, 'user' => $user], 201);
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+        ], 201);
     }
 
+    /**
+     * Log in an existing user and issue a token.
+     */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $fields = $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
 
-        if (!Auth::attempt($credentials)) {
+        if (!Auth::attempt($fields)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
         $user = Auth::user();
-        $token = $user->createToken('aut_token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['token' => $token, 'user' => $user], 200);
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+        ], 200);
     }
 
+    /**
+     * Log out the current user by revoking the token.
+     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
