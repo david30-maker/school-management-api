@@ -12,7 +12,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Attendance::with('student')->get());
     }
 
     /**
@@ -20,7 +20,7 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +28,15 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'student_id' => 'required',
+            'status' => 'required|in:present,absent',
+            'date' => 'required|date',
+            'remark' => 'nullable',
+        ]);
+
+        $attendance = Attendance::create($data);
+        return response()->json(['message' => 'Attendance marked successfully', 'attendance' => $attendance]);
     }
 
     /**
@@ -36,7 +44,7 @@ class AttendanceController extends Controller
      */
     public function show(Attendance $attendance)
     {
-        //
+        return response()->json($attendance);
     }
 
     /**
@@ -44,7 +52,15 @@ class AttendanceController extends Controller
      */
     public function edit(Attendance $attendance)
     {
-        //
+        $data = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'date' => 'required|date',
+            'status' => 'required|in:present,absent',
+            'remark' => 'nullable',
+        ]);
+
+        $attendance->update($data);
+        return response()->json(['message' => 'Attendance updated successfully', 'attendance' => $attendance]);
     }
 
     /**
@@ -60,6 +76,7 @@ class AttendanceController extends Controller
      */
     public function destroy(Attendance $attendance)
     {
-        //
+        $attendance->delete();
+        return response()->json(['message' => 'Attendance deleted successfully']);  
     }
 }

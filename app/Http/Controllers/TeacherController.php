@@ -12,7 +12,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Teacher::all());
     }
 
     /**
@@ -28,7 +28,16 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|integer',
+            'email' => 'required|email',
+            'phone_number' => 'required|string',
+            'address' => 'required|string',
+        ]);
+
+        $teacher = Teacher::create($data);
+        return response()->json(['message' => 'Teacher created successfully', 'teacher' => $teacher]);  
     }
 
     /**
@@ -36,7 +45,7 @@ class TeacherController extends Controller
      */
     public function show(Teacher $teacher)
     {
-        //
+        return response()->json($teacher);
     }
 
     /**
@@ -52,7 +61,16 @@ class TeacherController extends Controller
      */
     public function update(Request $request, Teacher $teacher)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|integer',
+            'email' => 'required|email',
+            'phone_number' => 'required|string',
+            'address' => 'required|string',
+        ]);
+
+        $teacher->update($data);
+        return response()->json(['message' => 'Teacher updated successfully', 'teacher' => $teacher]);
     }
 
     /**
@@ -60,6 +78,7 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        $teacher->delete();
+        return response()->json(['message' => 'Teacher deleted successfully']);
     }
 }

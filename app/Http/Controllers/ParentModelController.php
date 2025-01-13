@@ -12,7 +12,7 @@ class ParentModelController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(ParentModel::all());
     }
 
     /**
@@ -28,7 +28,17 @@ class ParentModelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'address' => 'required',
+            'profession' => 'required',
+            'office_address' => 'required',
+        ]);
+
+        $parentModel = ParentModel::create($data);
+        return response()->json(['message' => 'ParentModel created', 'data' => $parentModel]);
     }
 
     /**
@@ -36,7 +46,7 @@ class ParentModelController extends Controller
      */
     public function show(ParentModel $parentModel)
     {
-        //
+        return response()->json($parentModel);
     }
 
     /**
@@ -52,7 +62,17 @@ class ParentModelController extends Controller
      */
     public function update(Request $request, ParentModel $parentModel)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'profession' => 'required',
+            'office_address' => 'required',
+        ]);
+
+        $parentModel->update($data);
+        return response()->json(['message' => 'ParentModel updated', 'data' => $parentModel]);
     }
 
     /**
@@ -60,6 +80,7 @@ class ParentModelController extends Controller
      */
     public function destroy(ParentModel $parentModel)
     {
-        //
+        $parentModel->delete();
+        return response()->json(['message' => 'ParentModel deleted']);
     }
 }

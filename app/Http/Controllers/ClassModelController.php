@@ -12,7 +12,7 @@ class ClassModelController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(ClassModel::all());
     }
 
     /**
@@ -20,7 +20,7 @@ class ClassModelController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +28,16 @@ class ClassModelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'grade' => 'required|string',
+            'teacher_id' => 'required|integer',
+            'subject_id' => 'required|integer',
+            'room_no' => 'required|string',
+        ]);
+
+        $class = ClassModel::create($data);
+        return response()->json(['meassge' => 'Class created successfully', 'data' => $class]);
     }
 
     /**
@@ -36,7 +45,7 @@ class ClassModelController extends Controller
      */
     public function show(ClassModel $classModel)
     {
-        //
+        return response()->json($classModel);
     }
 
     /**
@@ -52,7 +61,16 @@ class ClassModelController extends Controller
      */
     public function update(Request $request, ClassModel $classModel)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'grade' => 'required|string',
+            'teacher_id' => 'required|integer',
+            'subject_id' => 'required|integer',
+            'room_no' => 'required|string',
+        ]);
+
+        $classModel->update($data);
+        return response()->json(['meassge' => 'Class updated successfully', 'data' => $classModel]);
     }
 
     /**
@@ -60,6 +78,7 @@ class ClassModelController extends Controller
      */
     public function destroy(ClassModel $classModel)
     {
-        //
+        $classModel->delete();
+        return response()->json(['meassge' => 'Class deleted successfully']);
     }
 }

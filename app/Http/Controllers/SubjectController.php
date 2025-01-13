@@ -12,7 +12,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Subject::with('students')->get());
     }
 
     /**
@@ -28,7 +28,16 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'teacher_id' => 'required|integer',
+            'class_id' => 'required|integer',
+            'time' => 'required|string',
+            'during' => 'required|string',
+        ]);
+
+        $subject = Subject::create($data);
+        return response()->json(['message' => 'Subject created successfully', 'subject' => $subject]);
     }
 
     /**
@@ -36,7 +45,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        //
+        return response()->json($subject);
     }
 
     /**
@@ -52,7 +61,16 @@ class SubjectController extends Controller
      */
     public function update(Request $request, Subject $subject)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'teacher_id' => 'required|integer',
+            'class_id' => 'required|integer',
+            'time' => 'required|string',
+            'during' => 'required|string',
+        ]);
+
+        $subject->update($data);
+        return response()->json(['message' => 'Subject updated successfully', 'subject' => $subject]);
     }
 
     /**
@@ -60,6 +78,7 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+        return response()->json(['message' => 'Subject deleted successfully']);
     }
 }
