@@ -12,7 +12,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Student::with('class')->get());
     }
 
     /**
@@ -20,7 +20,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +28,19 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'age' => 'required',
+            'class_id' => 'required|exists:classes,id',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'dob' => 'required',
+            'enrollment_number' => 'required',
+        ]);
+
+        $student = Student::create($data);
+        return  response()->json(['message' => 'Student created successfully', 'student' => $student]);
     }
 
     /**
@@ -36,7 +48,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return response()->json($student);
     }
 
     /**
@@ -52,7 +64,19 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'age' => 'required',
+            'class_id' => 'required|exists:classes,id',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'dob' => 'required',
+            'enrollment_number' => 'required',
+        ]);
+
+        $student->update($data);
+        return response()->json($student);
     }
 
     /**
@@ -60,6 +84,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return response()->json(['message' => 'Student deleted successfully']);
     }
 }
