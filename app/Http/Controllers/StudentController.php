@@ -31,7 +31,7 @@ class StudentController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'age' => 'required',
-            'class_id' => 'required|exists:classes,id',
+            'class_id' => 'nullable|exists:classes,id',
             'email' => 'required',
             'phone_number' => 'required',
             'address' => 'required',
@@ -40,7 +40,7 @@ class StudentController extends Controller
         ]);
 
         $student = Student::create($data);
-        return  response()->json(['message' => 'Student created successfully', 'student' => $student]);
+        return  response()->json($student);
     }
 
     /**

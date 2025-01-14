@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('age');
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('classModel')->onDelete('cascade');
             $table->string('email');
             $table->integer('roll_no');
             $table->date('dob');
