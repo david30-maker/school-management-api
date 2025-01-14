@@ -22,10 +22,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 // Protected API resources
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('/students', StudentController::class);
-    Route::apiResource('/attendance', AttendanceController::class);
-    Route::apiResource('/parents', parentModelsController::class); 
-    Route::apiResource('/teachers', TeacherController::class);
-    Route::apiResource('/subjects', SubjectController::class);
-    Route::apiResource('/classMode', classModelsController::class); 
+    Route::apiResource('students', StudentController::class);
+    Route::apiResource('attendance', AttendanceController::class);
+    Route::apiResource('parents', parentModelController::class); 
+    Route::apiResource('teachers', TeacherController::class);
+    Route::apiResource('subjects', SubjectController::class);
+    Route::apiResource('classes', classModelController::class); 
 });

@@ -36,6 +36,7 @@ class StudentController extends Controller
             'phone_number' => 'required',
             'address' => 'required',
             'dob' => 'required',
+            'roll_no' => 'nullable',
             'enrollment_number' => 'required',
         ]);
 

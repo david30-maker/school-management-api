@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('parent_models', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone_number');
-            $table->string('address');
-            $table->string('profession');
-            $table->string('office_address');
-            
+            $table->unsignedBigInteger('student_id');
+            $table->date('date');
+            $table->string('status');
+            $table->string('remark')->nullable();
+
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('parent_models');
+        Schema::dropIfExists('attendances');
     }
 };

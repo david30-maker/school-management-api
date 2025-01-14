@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->date('date');
-            $table->string('status');
-            $table->string('remark')->nullable();
+            $table->string('name');
+            $table->integer('age');
+            $table->string('email');
+            $table->integer('roll_no');
+            $table->date('dob');
+            $table->string('enrollment_number');
+            $table->string('phone_number');
+            $table->string('address');
 
             $table->timestamps();
         });
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('students');
     }
 };

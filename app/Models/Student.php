@@ -9,9 +9,9 @@ use App\Models\ParentModel;
 
 class Student extends Model
 {
-    protected $fillable = ['name', 'age', 'email', 'phone_number', 'class_id', 'address'];
+    protected $fillable = ['name', 'age', 'email', 'phone_number', 'enrollment_number', 'dob', 'roll_no', 'address'];
 
-    public function classMOdels()
+    public function classModels()
     {
         return $this->belongsTo(classMOdel::class);
     }
