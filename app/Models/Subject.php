@@ -8,7 +8,7 @@ use App\Models\Teacher;
 
 class Subject extends Model
 {
-    protected $fillable = ['name', 'teacher_id', 'time', 'during'];
+    protected $fillable = ['name', 'teacher_id', 'student_id', 'time', 'during'];
 
     public function students()
     {
