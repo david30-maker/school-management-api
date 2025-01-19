@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Attendance\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Student;
-use App\Models\ClassModel;
+
 
 class Attendance extends Model
 {
@@ -13,10 +13,5 @@ class Attendance extends Model
     public function student()
     {
         return $this->belongsTo(Student::class);
-    }
-
-    public function classModel()
-    {
-        return $this->belongsTo(ClassModel::class);
     }
 }
