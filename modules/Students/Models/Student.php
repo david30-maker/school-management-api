@@ -1,11 +1,8 @@
 <?php
 
-namespace Modules\Student\Models;
+namespace Modules\Students\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Attendance;
-use App\Models\classMOdel;
-use App\Models\ParentModel;
 
 class Student extends Model
 {
