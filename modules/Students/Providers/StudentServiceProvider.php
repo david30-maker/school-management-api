@@ -17,5 +17,7 @@ class StudentServiceProvider extends ServiceProvider
     {
          $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
          $this->mergeConfigFrom(__DIR__ . '/../Config/config.php', key: 'students');
+         
+         $this->app->register(RouteServiceProvider::class);
     }
 }
